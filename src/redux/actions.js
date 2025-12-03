@@ -4,7 +4,6 @@ export const FETCH_BOOKS_ERROR = "FETCH_BOOKS_ERROR";
 export const SET_SORT_BY = "SET_SORT_BY";
 export const SET_SORT_ORDER = "SET_SORT_ORDER";
 
-// Fetch Books
 export const fetchBooks = () => async (dispatch) => {
   dispatch({ type: FETCH_BOOKS_REQUEST });
 
@@ -25,7 +24,6 @@ export const fetchBooks = () => async (dispatch) => {
   }
 };
 
-// Sorting
 export const setSortBy = (value) => ({
   type: SET_SORT_BY,
   payload: value
