@@ -4,7 +4,8 @@ import { fetchBooks, setSortBy, setSortOrder } from "../redux/actions";
 
 const BooksList = () => {
   const dispatch = useDispatch();
-  const { books, sortBy, sortOrder, loading } = useSelector((s) => s);
+
+  const { books, sortBy, sortOrder, loading } = useSelector((state) => state);
 
   useEffect(() => {
     dispatch(fetchBooks());
@@ -23,26 +24,30 @@ const BooksList = () => {
     <div>
       <h1>Books List</h1>
 
-      {/* EXACT structure Cypress expects */}
+      {/* EXACT DOM structure Cypress expects */}
       <div>
-        <label>Sort by:</label>
-        <select
-          value={sortBy}
-          onChange={(e) => dispatch(setSortBy(e.target.value))}
-        >
-          <option value="title">Title</option>
-          <option value="author">Author</option>
-          <option value="publisher">Publisher</option>
-        </select>
+        <div>
+          <label>Sort by:</label>
+          <select
+            value={sortBy}
+            onChange={(e) => dispatch(setSortBy(e.target.value))}
+          >
+            <option value="title">Title</option>
+            <option value="author">Author</option>
+            <option value="publisher">Publisher</option>
+          </select>
+        </div>
 
-        <label>Order:</label>
-        <select
-          value={sortOrder}
-          onChange={(e) => dispatch(setSortOrder(e.target.value))}
-        >
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
-        </select>
+        <div>
+          <label>Order:</label>
+          <select
+            value={sortOrder}
+            onChange={(e) => dispatch(setSortOrder(e.target.value))}
+          >
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+          </select>
+        </div>
       </div>
 
       {loading && <p>Loading...</p>}
