@@ -4,7 +4,7 @@ import { fetchBooks, setSortBy, setSortOrder } from "../redux/actions";
 
 const BooksList = () => {
   const dispatch = useDispatch();
-  const { books, sortBy, sortOrder, loading } = useSelector((s) => s.books);
+  const { books, sortBy, sortOrder, loading } = useSelector((s) => s);
 
   useEffect(() => {
     dispatch(fetchBooks());
