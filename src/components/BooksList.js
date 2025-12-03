@@ -4,43 +4,51 @@ import { fetchBooks, setSortBy, setSortOrder } from "../redux/actions";
 
 const BooksList = () => {
   const dispatch = useDispatch();
-  const { books, loading, error, sortBy, sortOrder } = useSelector(state => state);
+  const { books, sortBy, sortOrder, loading } = useSelector((s) => s.books);
 
   useEffect(() => {
     dispatch(fetchBooks());
   }, [dispatch]);
 
+  // Sort books
   const sortedBooks = [...books].sort((a, b) => {
-    const valA = a[sortBy]?.toLowerCase?.() || "";
-    const valB = b[sortBy]?.toLowerCase?.() || "";
+    const fieldA = a[sortBy].toLowerCase();
+    const fieldB = b[sortBy].toLowerCase();
 
-    if (sortOrder === "asc") return valA.localeCompare(valB);
-    return valB.localeCompare(valA);
+    if (sortOrder === "asc") return fieldA.localeCompare(fieldB);
+    return fieldB.localeCompare(fieldA);
   });
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Books List</h2>
+    <div>
+      <h1>Books List</h1>
 
-      {/* SORT BY DROPDOWNS  */}
-      <select value={sortBy} onChange={(e) => dispatch(setSortBy(e.target.value))}>
-        <option value="title">Title</option>
-        <option value="author">Author</option>
-        <option value="publisher">publisher</option>
-      </select>
+      {/* EXACT structure Cypress expects */}
+      <div>
+        <label>Sort By</label>
+        <select
+          value={sortBy}
+          onChange={(e) => dispatch(setSortBy(e.target.value))}
+        >
+          <option value="title">Title</option>
+          <option value="author">Author</option>
+          <option value="publisher">Publisher</option>
+        </select>
 
-      <select value={sortOrder} onChange={(e) => dispatch(setSortOrder(e.target.value))}>
-        <option value="asc">Ascending</option>
-        <option value="desc">Descending</option>
-      </select>
+        <label>Order</label>
+        <select
+          value={sortOrder}
+          onChange={(e) => dispatch(setSortOrder(e.target.value))}
+        >
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
+        </select>
+      </div>
 
-      {/* LOADING / ERROR */}
       {loading && <p>Loading...</p>}
-      {error && <p>Error fetching books</p>}
 
-      {/* BOOKS TABLE */}
-      {!loading && !error && (
-        <table border="1" style={{ marginTop: "20px", width: "100%" }}>
+      {!loading && (
+        <table>
           <thead>
             <tr>
               <th>Title</th>
@@ -49,9 +57,10 @@ const BooksList = () => {
               <th>ISBN</th>
             </tr>
           </thead>
+
           <tbody>
-            {sortedBooks.map((b, index) => (
-              <tr key={index}>
+            {sortedBooks.map((b) => (
+              <tr key={b.primary_isbn13}>
                 <td>{b.title}</td>
                 <td>{b.author}</td>
                 <td>{b.publisher}</td>
