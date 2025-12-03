@@ -25,7 +25,7 @@ const BooksList = () => {
 
       {/* EXACT structure Cypress expects */}
       <div>
-        <label>Sort By</label>
+        <label>Sort by:</label>
         <select
           value={sortBy}
           onChange={(e) => dispatch(setSortBy(e.target.value))}
@@ -35,7 +35,7 @@ const BooksList = () => {
           <option value="publisher">Publisher</option>
         </select>
 
-        <label>Order</label>
+        <label>Order:</label>
         <select
           value={sortOrder}
           onChange={(e) => dispatch(setSortOrder(e.target.value))}
